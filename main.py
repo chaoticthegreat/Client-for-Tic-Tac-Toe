@@ -11,7 +11,7 @@ def type(string:str):
 quit=False
 def alive(username):
   while not quit:
-    r=requests.post("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/check/", json = {"username":username, "checking":False}).json()
+    r=requests.post("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/check/", json = {"username":username, "checking":False}).json()
     if r["Kick"] == True:
       type("The other player left!")
       type("Re-run the program to play again :D")
@@ -25,18 +25,18 @@ For future referance when playing:
 -+-+-
 1|2|3''')
 username = input("What's your username: \n")
-while not requests.post("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/check/", json = {"username":username,"checking":True}).json()["Username"]:
+while not requests.post("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/check/", json = {"username":username,"checking":True}).json()["Username"]:
   print("Pick a different one!")
   username = input("What's your username: \n")
 
 Thread(target = alive, args = (username,)).start()
 type("Please wait while we match you up with someone!\nFor a quicker match up, call a partner to play on a different computer!")  
-r = requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/"+username).json()
+r = requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/"+username).json()
 match_id = str(r["match_id"])
 x=False
 if r["match_found"] == False:
   x=True
-  while requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/match/"+match_id).json()["match_found"] == False:
+  while requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/match/"+match_id).json()["match_found"] == False:
     time.sleep(3)
 type("Match FOUND!")
 
@@ -59,7 +59,7 @@ def printBoard(board):
 if x==True:
   while True:
     os.system("clear")
-    b=requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["Username"]
+    b=requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["Username"]
     b.remove(username)
     print(f"{username} vs. {b[0]}")
     printBoard(theBoard)
@@ -75,9 +75,9 @@ if x==True:
     except NameError or KeyError:pass
     type("Your turn!")
     choice = input("Where do you want to place the x? (NumKey Pad order): ")
-    if choice not in requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["Empty"]:
+    if choice not in requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["Empty"]:
       continue
-    r=requests.post("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"X":True, "input":choice, "match_id":match_id}).json()
+    r=requests.post("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"X":True, "input":choice, "match_id":match_id}).json()
     count = len(r["Empty"])
     for item in r["X"]:
       theBoard[item] = "x"
@@ -93,36 +93,36 @@ if x==True:
       sys.exit()
     type("Waiting for opponent to make move...")
     try:
-      while count == len(requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["Empty"]):
+      while count == len(requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["Empty"]):
         time.sleep(2)
     except KeyError:
-      if requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["kicked"]:
+      if requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["kicked"]:
         break
-    r1=requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()
+    r1=requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()
     for item in r1["O"]:
       theBoard[item] = "o"
 else:
   while True:
     os.system("clear")
-    b=requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["Username"]
+    b=requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["Username"]
     b.remove(username)
     print(f"{username} vs. {b[0]}")
     printBoard(theBoard)
     type("Waiting for opponent to make move...")
-    r1=requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()
+    r1=requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()
     count = len(r1["Empty"])
     try:
-      while count == len(requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["Empty"]):
+      while count == len(requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["Empty"]):
         time.sleep(2)
     except KeyError:
-      if requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["kicked"]:
+      if requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["kicked"]:
         break
-    r2=requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()
+    r2=requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()
     for item in r2["X"]:
       theBoard[item] = "x"
     os.system("clear")
     printBoard(theBoard)
-    r=requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()
+    r=requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()
     try:
       if count==0:
         type("Game Over!")
@@ -137,12 +137,12 @@ else:
     type("Your turn!")
     while True:
       choice = input("Where do you want to place the o? (NumKey Pad order): ")
-      if choice not in requests.get("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"match_id":match_id}).json()["Empty"]:
+      if choice not in requests.get("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"match_id":match_id}).json()["Empty"]:
         print("Sorry thats taken!")
         continue
       else:
         break
-    r=requests.post("https://Online-Tic-Tac-Toe-Server.proryan.repl.co/server/", json={"X":False, "input":choice, "match_id":match_id}).json()
+    r=requests.post("https://Online-Tic-Tac-Toe-Server.chaoticchaosthegreat.repl.co/server/", json={"X":False, "input":choice, "match_id":match_id}).json()
     for item in r["O"]:
       theBoard[item] = "o"
     os.system("clear")
